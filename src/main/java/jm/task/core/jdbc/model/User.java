@@ -22,10 +22,19 @@ public class User {
 
     }
 
-    public User(String name, String lastName, Byte age) {
+    public User(Long id, String name, String lastName, byte age) {
+        if (name == null || name.isBlank() || lastName == null || lastName.isBlank() || age <= 0) {
+            throw new IllegalArgumentException("User parameters are incorrect");
+        }
+
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    public User(String name, String lastName, byte age) {
+        this(null, name, lastName, age);
     }
 
     public Long getId() {
@@ -58,5 +67,10 @@ public class User {
 
     public void setAge(Byte age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User name: %s, last name: %s, age: %d", name, lastName, age);
     }
 }
